@@ -1,0 +1,17 @@
+<h1><%= @test.title %>の質問に答える</h1>
+
+<%= form_with model: @test_answer, url: test_questions_path(@test), local: true do |form| %>
+  <ul>
+    <% @questions.each do |question| %>
+      <li>
+        <p><%= question.question_text %></p>
+        <% (1..@test.max_score).each do |score| %>
+          <%= label_tag "scores_#{question.id}_#{score}", score %>
+          <%= radio_button_tag "scores[#{question.id}]", score, false, id: "scores_#{question.id}_#{score}" %>
+        <% end %>
+        <p>（1: 当てはまらない ～ <%= @test.max_score %>: 当てはまる）</p>
+      </li>
+    <% end %>
+  </ul>
+  <%= form.submit "回答を送信" %>
+<% end %>

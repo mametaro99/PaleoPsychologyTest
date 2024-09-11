@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+## 開発で参考にしたWebサイト
+
+[Rails chart.jsでグラフ表示_saya](https://zenn.dev/goldsaya/articles/09d7d3b0532f829)

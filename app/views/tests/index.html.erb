@@ -1,0 +1,44 @@
+<div class="home-container">
+  <header class="home-header">
+    <h1 class="home-title">心理テスト成長記録</h1>
+    <p class="home-description">
+      このアプリでは心理テストを受験してあなたの心理や性格を記録し、過去の自分の受験結果と比較することができます。
+    </p>
+  </header>
+
+  <section class="about-section">
+    <h2>パレオな男について</h2>
+    <p>
+      このアプリで使用される心理テストや性格診断テストは<a href="https://yuchrszk.blogspot.com" target="_blank" class="link">パレオな男</a>の関する記事を基に作成されています。
+      より詳細な情報は、パレオな男のブログをチェックしてください。
+    </p>
+  </section>
+
+  <section class="tests-section">
+    <h2>全テスト</h2>
+    <div class="tests-grid">
+      <% @tests.each do |test| %>
+        <div class="test-card">
+          <a href="<%= test_path(test) %>">
+            <h3><%= test.title %></h3>
+            <p><%= test.description %></p>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="past-tests-section">
+    <h2>過去に受けたテスト</h2>
+    <div class="past-tests-grid">
+      <% @past_tests.each do |test_answer| %>
+        <div class="test-card">
+          <a href="<%= test_path(test_answer.test) %>">
+            <h3><%= test_answer.test.title %></h3>
+            <p>受験日: <%= test_answer.created_at.strftime("%Y年%m月%d日") %></p>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>

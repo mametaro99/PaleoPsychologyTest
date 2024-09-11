@@ -1,0 +1,127 @@
+<div class="test-details-container">
+  <h1><%= @test.title %></h1>
+  <p><%= @test.description %></p>
+  <p>全受験者のテストの平均点は<%= @test.avg_score %>です。</p>
+
+  <%= link_to "テストを受験する", new_test_question_path(@test), class: "btn btn-primary" %>
+
+  <section class="test-results">
+    <h2>受験結果比較表</h2>
+
+    <% if @test_answers.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>質問</th>
+            <% @test_answers.each do |test_answer| %>
+              <th>受験日: <%= test_answer.created_at.strftime("%Y年%m月%d日") %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @test.questions.each do |question| %>
+            <tr>
+              <td><%= question.question_text %></td>
+              <% total_score = 0 %>
+              <% @test_answers.each do |test_answer| %>
+                <% detail = test_answer.test_answer_details.find { |d| d.question_id == question.id } %>
+                <td><%= detail&.score || '未回答' %></td>
+              <% end %>
+            </tr>
+          <% end %>
+
+          <!-- 平均点を各日ごとに計算して表示 -->
+          <tr>
+            <th>各日の平均点</th>
+            <% previous_average = nil %> <!-- 前回の平均点を保持 -->
+            <% @test_answers.each_with_index do |test_answer, index| %>
+              <% day_total = test_answer.test_answer_details.sum(&:score) %>
+              <% day_average = (day_total.to_f / @test.questions.size).round(2) %>
+              <td>
+                <%= day_average %>
+                <!-- 2回目以降の平均点を前回の値と比較 -->
+                <% if index > 0 %>
+                  <% if day_average > previous_average %>
+                    <span style="color: green;">↑</span>
+                  <% elsif day_average < previous_average %>
+                    <span style="color: red;">↓</span>
+                  <% else %>
+                    <span style="color: gray;">→</span>
+                  <% end %>
+                <% end %>
+              </td>
+              <% previous_average = day_average %> <!-- 今回の平均点を前回の値として記録 -->
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 折れ線グラフ表示 -->
+      <section class="test-results-graph">
+        <h2><%= @test.title %>の平均点の変化</h2>
+        <canvas id="averageScoreChart"></canvas>
+      </section>
+
+    <% else %>
+      <p>まだこのテストを受けたことがありません。</p>
+    <% end %>
+  </section>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('averageScoreChart').getContext('2d');
+    var averages = <%= raw @averages.to_json %>; // @averagesを正しい形式で渡す
+    var overallAvgScore = <%= @test.avg_score %>; // 全受験者の平均点
+
+    var labels = averages.map(function(item) {
+      return item[0]; // 日付
+    });
+    var data = averages.map(function(item) {
+      return item[1]; // 各日の平均点
+    });
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: '各日の平均点',
+            data: data,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            fill: false
+          },
+          {
+            label: '全受験者の平均点',
+            data: Array(labels.length).fill(overallAvgScore), // 各日のラベルに対応する全受験者の平均点を固定値で入れる
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 2,
+            borderDash: [5, 5], // 破線で表現
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: '受験日'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: '平均点'
+            },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
