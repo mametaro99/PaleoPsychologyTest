@@ -1,0 +1,53 @@
+<h1><%= action_name == 'new' ? '新しいテストを作成' : 'テストを編集' %></h1>
+
+<%= form_with model: @test, url: action_name == 'new' ? admin_tests_path : admin_test_path(@test), local: true, data: { turbo: false } do |form| %>
+  <div class="form-group">
+    <%= form.label :title, 'タイトル' %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :description, '説明' %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :min_score, '最小点数' %>
+    <%= form.number_field :min_score, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :max_score, '最大点数' %>
+    <%= form.number_field :max_score, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :avg_score, '平均点数' %>
+    <%= form.number_field :avg_score, step: 0.1, class: 'form-control' %>
+  </div>
+  <%= form.submit '保存', class: 'btn btn-primary' %>
+<% end %>
+
+
+<h2>質問一覧</h2>
+
+<%= link_to '新しい質問を追加', new_admin_test_question_path(@test), class: "btn btn-success", data: { turbo: false } %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>質問</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @test.questions.each do |question| %>
+      <tr>
+        <td><%= question.question_text %></td>
+        <td>
+          <%= link_to '編集', edit_admin_test_question_path(@test, question), class: "btn btn-secondary", data: { turbo: false } %>
+          <%= link_to '削除', admin_test_question_path(@test, question), data: {turbo_method: :delete}, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to 'テスト一覧に戻る', admin_tests_path, class: 'btn btn-link' %>

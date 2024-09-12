@@ -1,0 +1,25 @@
+<h1>テスト一覧</h1>
+
+<%= link_to '新しいテストを作成', new_admin_test_path, class: "btn btn-primary" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>説明</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tests.each do |test| %>
+      <tr>
+        <td><%= test.title %></td>
+        <td><%= test.description %></td>
+        <td>
+          <%= link_to '編集', edit_admin_test_path(test), class: "btn btn-secondary" %>
+          <%= link_to '削除', admin_test_path(test), data: {turbo_method: :delete}, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

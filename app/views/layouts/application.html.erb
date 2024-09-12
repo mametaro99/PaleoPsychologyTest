@@ -14,7 +14,7 @@
   <body>
     <header class="navbar">
       <div class="container">
-        <h1 class="app-title">心理テスト成長記録<a href="/"></a></h1>
+        <h1 class="app-title"><%= link_to '心理テスト成長記録', tests_path %><a href="/"></a></h1>
         <nav class="nav-links">
           <% if user_signed_in? %>
             <%= link_to 'ユーザ編集', edit_user_registration_path, class: 'nav-link' %>

@@ -1,6 +1,7 @@
 # ユーザーのサンプルデータ作成
 user1 = User.create!(email: "user1@example.com", password: "password123")
 user2 = User.create!(email: "user2@example.com", password: "password123")
+Admin.create!(email: 'admin@example.com', password: 'password')
 
 # テストのサンプルデータ作成
 test1 = Test.create!(
