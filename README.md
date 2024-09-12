@@ -27,3 +27,5 @@ Things you may want to cover:
 ## 開発で参考にしたWebサイト
 
 [Rails chart.jsでグラフ表示_saya](https://zenn.dev/goldsaya/articles/09d7d3b0532f829)
+
+[【完全版】Rails Renderデプロイガイド](https://qiita.com/yuuki-h/items/9f594c046a6e676eb8f8)
