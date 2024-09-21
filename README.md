@@ -31,3 +31,5 @@ Things you may want to cover:
 [【完全版】Rails Renderデプロイガイド](https://qiita.com/yuuki-h/items/9f594c046a6e676eb8f8)
 
 [【Terraform 入門】Terraform を使って AWS EC2 や RDS を構築しよう Learn Terraform in 30 Minutes_FarStep_Youtube](https://www.youtube.com/watch?v=zQryEqZnBJU)
+
+[apt-get updateでthe public key is not available: NO_PUBKEY＿Masamoto_zenn](https://zenn.dev/gomo/articles/7f6c28d002837c)
