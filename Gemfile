@@ -56,7 +56,7 @@ end
 
 group :development do
   # Use mysql as the database for Active Record
-  gem "mysql2", "~> 0.5" 
+  gem "mysql", "~> 8.0.33"
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
