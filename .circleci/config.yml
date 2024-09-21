@@ -10,6 +10,11 @@ jobs:
     docker:
       # specify the version you desire here
       - image: cimg/ruby:3.2.0-browsers
+        environment:  
+            RAILS_ENV: test
+            DB_HOST: 127.0.0.1
+            DB_USERNAME: 'root'
+            DB_PASSWORD: ''
 
 
       # Specify service dependencies here if necessary
@@ -17,10 +22,8 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: cimg/mysql:8.0.33
         environment:
-          MYSQL_ROOT_PASSWORD: password  # rootのパスワードを指定
-          MYSQL_DATABASE: railsapp_test  # テスト用のデータベース名
-          MYSQL_HOST: 127.0.0.1          # MySQLのホスト（ローカルホスト）
-          MYSQL_PORT: 3306               # MySQLのデフォルトポート
+          MYSQL_ROOT_HOST: '%'
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
 
     working_directory: ~/repo
 

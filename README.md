@@ -33,3 +33,5 @@ Things you may want to cover:
 [【Terraform 入門】Terraform を使って AWS EC2 や RDS を構築しよう Learn Terraform in 30 Minutes_FarStep_Youtube](https://www.youtube.com/watch?v=zQryEqZnBJU)
 
 [apt-get updateでthe public key is not available: NO_PUBKEY＿Masamoto_zenn](https://zenn.dev/gomo/articles/7f6c28d002837c)
+
+[【CircleCI】CircleCIの自動テストでハマった（rails + mysql）【メモ】_kagamiya9](https://qiita.com/kagamiya9/items/a68233940a53185b1169)
